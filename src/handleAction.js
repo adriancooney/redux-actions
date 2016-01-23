@@ -9,7 +9,8 @@ export default function handleAction(type, reducers) {
     // If action type does not match, return previous state
     if (action.type !== type) return state;
 
-    const handlerKey = isError(action) ? 'throw' : 'next';
+    const handlerKey = isError(action) ? 'throw' : 
+      !!action.meta && action.meta.subAction ? action.meta.subAction : 'next';
 
     // If function is passed instead of map, use as reducer
     if (isFunction(reducers)) {
